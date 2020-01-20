@@ -1,4 +1,4 @@
-exports.config = {
+export const config = {
 	// Protractor communicates directly with the Drivers of Chrome and Firefox
 	directConnect: true,
 	// Capabilities to be passed to the webdriver instance.
