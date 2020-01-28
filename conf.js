@@ -2,23 +2,26 @@ const HTMLReport = require('protractor-html-reporter');
 const terminalReporter = require('jasmine-reporters').TerminalReporter;
 const JUnitXmlReporter = require('jasmine-reporters').JUnitXmlReporter;
 const fs = require('fs-extra');
+
 exports.config = {
     // this command starts a standalone server to avoid starting a dedicated server on an extra terminal
     directConnect: true,
     // run all the specs under Spec folder
-    specs: ['./specs/simple.spec.js'],
+    specs: ['./specs/homePage/homePage.spec.js'],
+
     onPrepare: () => {
         // Browser config
         // Ignore Sync for non Angunlar pages
         browser.ignoreSynchronization = true;
         // maximize browser
-		browser.driver.manage().window().maximize();
-		browser.get("https://www.despegar.com.ar")
-        //Jasmine set initialization 
+        browser.driver.manage().window().maximize();
+       browser.get('https://www.despegar.com.ar');  
+        //Jasmine set initialization
         const environment = jasmine.getEnv();
+
         // Reports config
         // Turn Off default reporter
-        jasmine.getEnv().clearReporters();
+       // jasmine.getEnv().clearReporters();
         // Set Terminal report
         jasmine.getEnv().addReporter(new terminalReporter({
             verbosity: 3,
@@ -39,6 +42,7 @@ exports.config = {
                         browser.getCapabilities().then(function (caps) {
                             let browserName = caps.get('browserName');
                             var screenshotPath = "./reports/screenshots/";
+
                             if (!fs.existsSync(screenshotPath)) {
                                 fs.mkdirSync(screenshotPath);
                             }
@@ -56,6 +60,7 @@ exports.config = {
             },
         });
     },
+
     // HTMLReport called once tests are finished
     // Create an HTML Report from XML report file
     onComplete: () => {
